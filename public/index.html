@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SnapCode — Extract code from screenshots</title>
+  <meta name="description" content="Extract clean, copy-pasteable code from screenshots using browser-side OCR. No backend, no signup — just paste and go.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📸</text></svg>">
+
+  <!-- Tesseract.js for browser-side OCR -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+  <!-- Prism.js for syntax highlighting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-typescript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-ruby.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-go.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-rust.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-java.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-c.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-cpp.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-php.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-swift.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-kotlin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-scala.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-sql.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-json.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-yaml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markdown.min.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="app-title">
+      <span class="logo">📸</span>
+      <h1>SnapCode</h1>
+    </div>
+    <div class="header-actions">
+      <button id="theme-toggle" class="btn-icon" aria-label="Toggle theme">☀</button>
+      <button id="history-toggle" class="btn">
+        History
+        <span class="history-toggle-badge" id="history-badge">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="main-container">
+    <div class="content-area">
+
+      <!-- Drop Zone -->
+      <div id="drop-zone" class="drop-zone" tabindex="0" role="button" aria-label="Drop an image or click to upload">
+        <div class="drop-zone-icon">📋</div>
+        <div class="drop-zone-title">Paste screenshot or drop image here</div>
+        <div class="drop-zone-hint">
+          Press <kbd>Cmd</kbd>+<kbd>V</kbd> to paste &middot; Click to browse &middot; Drag &amp; drop
+        </div>
+      </div>
+
+      <!-- Image Preview -->
+      <div id="preview-container" class="preview-container">
+        <img id="preview-img" alt="Pasted screenshot preview">
+      </div>
+
+      <!-- Progress -->
+      <div id="progress-container" class="progress-container">
+        <div id="progress-label" class="progress-label">Starting...</div>
+        <div class="progress-track">
+          <div id="progress-bar" class="progress-bar"></div>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <section id="result-section" class="result-section">
+        <div class="toolbar">
+          <select id="language-select" aria-label="Language"></select>
+          <div class="toolbar-spacer"></div>
+          <button id="copy-btn" class="btn">Copy</button>
+          <button id="download-btn" class="btn">Download</button>
+          <button id="clear-btn" class="btn">Clear</button>
+        </div>
+        <div class="code-wrapper">
+          <div id="code-display" class="code-display"></div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- History Panel -->
+    <aside id="history-panel" class="history-panel">
+      <div class="history-header">
+        <h3>History</h3>
+        <button id="clear-history-btn" class="btn" style="font-size:0.75rem; padding:3px 8px;">Clear All</button>
+      </div>
+      <div id="history-list" class="history-list"></div>
+    </aside>
+  </main>
+
+  <!-- App JS (compiled from TypeScript) -->
+  <script src="../dist/app.js"></script>
+</body>
+</html>

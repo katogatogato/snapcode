@@ -1,0 +1,19 @@
+{
+  "name": "snapcode",
+  "version": "1.0.0",
+  "description": "Extract clean code from screenshots — browser-side OCR with smart cleanup",
+  "author": "katogatogato",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/katogatogato/snapcode"
+  },
+  "homepage": "https://katogatogato.github.io/snapcode",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}
